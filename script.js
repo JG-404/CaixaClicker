@@ -72,7 +72,7 @@ const upgrades = [
     {
         id: 0,
         texto: "Produção automatica",
-        cps: 1,
+        cps: 0.1,
         preco: 10,
         qtd: 0
     },
@@ -115,6 +115,6 @@ for (let i = 0; i < upgrades.length; i++){
 
 //essa função fica repetindo o codigo toda hora pra atualizar os cps
 setInterval(() =>{
-    qtd_caixas += caixas_per_second * multiplier;
+    qtd_caixas += caixas_per_second;
     refresh();
 }, 1000)
