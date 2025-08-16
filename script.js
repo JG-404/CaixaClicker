@@ -5,21 +5,21 @@ let multiplier = 1;
 const naodisponivel = document.getElementById("cant");
 
 //funções
-function getCookie(){
+function getCookie() {
     qtd_caixas += multiplier;
     refresh();
 }
 
-function refresh(){
-    document.querySelector("h1").innerHTML = `${qtd_caixas.toLocaleString("pt-br")} caixas`;
+function refresh() {
+    document.querySelector("h1").innerHTML = `${Math.floor(qtd_caixas).toLocaleString("pt-br")} caixas`;
 }
 
-function cria_upgrade(id){
+function cria_upgrade(id) {
     const upgrades_create = document.getElementById("upgrades");
 
     const upgrade_div = document.createElement("div");
     upgrade_div.className = "upgrade";
-    upgrade_div.onclick = () => comprar(upgrades[id].id)
+    upgrade_div.onclick = () => comprar_upgrade(upgrades[id].id)
 
     const upgrade_text = document.createElement("p");
     upgrade_text.textContent = upgrades[id].texto;
@@ -39,26 +39,40 @@ function cria_upgrade(id){
     upgrades_create.appendChild(upgrade_div)
 }
 
-function update_upgrade_status(item_id, qtd){
-    document.getElementById(`${item_id}`).innerHTML = `${default_texts.qtd} ${upgrades[item_id].qtd}`
-    document.getElementById(`price${item_id}`).innerHTML = `${default_texts.price} ${upgrades[item_id].preco}`
+function update_upgrade_status(id, qtd) {
+    document.getElementById(`${id}`).innerHTML = `${default_texts.qtd} ${upgrades[id].qtd}`
+    document.getElementById(`price${id}`).innerHTML = `${default_texts.price} ${upgrades[id].preco}`
     document.querySelector("h3").innerHTML = `${default_texts.cps} ${caixas_per_second.toLocaleString("pt-br")}`;
 }
 
-function comprar(item_id){
-    if (qtd_caixas < upgrades[item_id].preco){
+function comprar_upgrade(id) {
+    if (qtd_caixas < upgrades[id].preco) {
         naodisponivel.play()
     }
-    else{
-        let qtd_upgrades = upgrades[item_id].qtd;
-        qtd_caixas -= upgrades[item_id].preco
+    else {
+        let qtd_upgrades = upgrades[id].qtd;
+        qtd_caixas -= upgrades[id].preco
         qtd_upgrades += 1
-        upgrades[item_id].qtd = qtd_upgrades
-        caixas_per_second += upgrades[item_id].cps
-        upgrades[item_id].preco = Math.floor(upgrades[item_id].preco * 1.15);
-        update_upgrade_status(item_id, upgrades[item_id].qtd)
+        upgrades[id].qtd = qtd_upgrades
+        caixas_per_second += upgrades[id].cps
+        upgrades[id].preco = Math.floor(upgrades[id].preco * 1.15);
+        update_upgrade_status(id, upgrades[id].qtd)
         refresh()
     }
+}
+
+function cria_item(id) {
+    const item = document.getElementById("itens")
+
+    const div = document.createElement("div");
+    div.className = "item"
+    div.id = `$item_${id}`
+
+    const img = document.createElement("img");
+    img.src = itens[id].frame
+
+    div.append(img)
+    item.appendChild(div)
 }
 
 //objetos, listas, etc
@@ -74,47 +88,90 @@ const upgrades = [
         texto: "Produção automatica",
         cps: 0.1,
         preco: 10,
-        qtd: 0
+        qtd: 0,
+        img: ".\\source\\images\\placeholder.png",
     },
     {
         id: 1,
         texto: "Caixas rapidas",
         cps: 5,
         preco: 100,
-        qtd: 0
+        qtd: 0,
+        img: ".\\source\\images\\placeholder.png",
     },
     {
         id: 2,
         texto: "Caixas bem rapidas",
         cps: 10,
         preco: 1000,
-        qtd: 0
+        qtd: 0,
+        img: ".\\source\\images\\placeholder.png",
     },
 ];
 
-const itens  = [
+const itens = [
     {
         id: 0,
-        itenframe: ".\source\images\itens\crate.png",
+        frame: ".\\source\\images\\placeholder.png",
         multi: 1,
         price: 5000
     },
     {
         id: 1,
-        itenframe: ".\source\images\itens\companioncube.png",
+        frame: ".\\source\\images\\placeholder.png",
         multi: 2,
         price: 50000
-    }
+    },
+    {
+        id: 0,
+        frame: ".\\source\\images\\placeholder.png",
+        multi: 1,
+        price: 5000
+    },
+    {
+        id: 1,
+        frame: ".\\source\\images\\placeholder.png",
+        multi: 2,
+        price: 50000
+    },
+    {
+        id: 0,
+        frame: ".\\source\\images\\placeholder.png",
+        multi: 1,
+        price: 5000
+    },
+    {
+        id: 1,
+        frame: ".\\source\\images\\placeholder.png",
+        multi: 2,
+        price: 50000
+    },
+    {
+        id: 0,
+        frame: ".\\source\\images\\placeholder.png",
+        multi: 1,
+        price: 5000
+    },
+    {
+        id: 1,
+        frame: ".\\source\\images\\placeholder.png",
+        multi: 2,
+        price: 50000
+    },
 ]
 
-
-//aqui embaixo vai ficar o codigo que vai criar as divs de upgrade
-for (let i = 0; i < upgrades.length; i++){
+//vai criar os upgrades
+for (let i = 0; i < upgrades.length; i++) {
     cria_upgrade(i)
 }
 
+//vai criar os itens da loja
+for (let i = 0; i < itens.length; i++) {
+    cria_item(i)
+}
+
 //essa função fica repetindo o codigo toda hora pra atualizar os cps
-setInterval(() =>{
+setInterval(() => {
     qtd_caixas += caixas_per_second;
     refresh();
 }, 1000)
