@@ -26,17 +26,21 @@
                 <img src="./source/images/caixa.webp" onclick="getCookie()" alt="">
             </div>
         </div>
-        <div id="middle"></div>
+        <div id="middle">
+            <div id="menu">
+                <div id="achivements" class="menubutton"><p>Conquistas</p></div>
+                <p id="frase"></p>
+                <div id="option" class="menubutton"><p>Configurações</p></div>
+            </div>
+            <div class="barra"></div>
+            
+        </div>
         <div id="right">
             <div id="titulo">
                 <h1>Loja</h1>
             </div>
-            <div id="teste">
-                <div class="barra"></div>
-                <div id="itens"></div>
-            </div>
-            <div class="barra"></div>
-            <div id="upgrades"></div>
+            <div id="itens" onmouseenter="name_appear('nameitens')" onmouseleave="name_desappear('nameitens')"><div class="barra" id="nameitens"></div></div>
+            <div id="upgrades" onmouseenter="name_appear('nameupgrades')" onmouseleave="name_desappear('nameupgrades')"><div class="barra" id="nameupgrades"></div></div>
         </div>
     </div>
     <audio id="cant" src="./source/audio/youtube_AAgD47YoCpQ_audio.mp3"></audio>

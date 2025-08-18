@@ -75,11 +75,70 @@ function cria_item(id) {
     item.appendChild(div)
 }
 
+function create_text(text, id_name){
+    const x = document.getElementById(id_name);
+    const texto = document.createElement("p");
+    texto.textContent = text;
+    x.appendChild(texto)
+}
+
+function name_appear(id_name){
+    switch (id_name){
+        case "nameitens":
+            create_text("Melhorias", id_name);
+            break;
+        case "nameupgrades":
+            create_text("Construções", id_name);
+            break;
+    }
+}
+
+function name_desappear(id_name){
+    const remove = document.getElementById(id_name);
+    const element = remove.querySelector("p")
+    remove.removeChild(element)
+}
+
 //objetos, listas, etc
 const default_texts = {
     cps: "por segundo: ",
     qtd: "Quantidade: ",
     price: "Preço: "
+}
+
+function save(){
+    const save = {
+        qtd_caixas,
+        caixas_per_second,
+        multiplier,
+        upgrades,
+        itens
+    }
+
+    localStorage.setItem("save", JSON.stringify(save));
+    console.log("GAME SAVED")
+}
+
+function load_save(){
+    const save = localStorage.getItem("save")
+    if (save){
+        const data = JSON.parse(save)
+
+        qtd_caixas = data.qtd_caixas;
+        caixas_per_second = data.caixas_per_second;
+        multiplier = data.multiplier
+
+        for (let i = 0; i < upgrades.length; i++){
+            upgrades[i] = data.upgrades[i]
+            update_upgrade_status(upgrades[i].id, upgrades[i].qtd)
+        }
+
+        for (let i = 0; i < itens.length; i++){
+            itens[i] = data.itens[i]
+        }
+
+        refresh()
+    }
 }
 
 const upgrades = [
@@ -158,7 +217,33 @@ const itens = [
         multi: 2,
         price: 50000
     },
+    {
+        id: 0,
+        frame: ".\\source\\images\\placeholder.png",
+        multi: 1,
+        price: 5000
+    },
+    {
+        id: 1,
+        frame: ".\\source\\images\\placeholder.png",
+        multi: 2,
+        price: 50000
+    },
+    {
+        id: 0,
+        frame: ".\\source\\images\\placeholder.png",
+        multi: 1,
+        price: 5000
+    },
+    {
+        id: 1,
+        frame: ".\\source\\images\\placeholder.png",
+        multi: 2,
+        price: 50000
+    },
 ]
+
+const frases = ["Você ganha caixas se clicar na caixa", "Cookie clicker é muito melhor que esse jogo", "Schrodinger amaria esse jogo"]
 
 //vai criar os upgrades
 for (let i = 0; i < upgrades.length; i++) {
@@ -170,8 +255,19 @@ for (let i = 0; i < itens.length; i++) {
     cria_item(i)
 }
 
+load_save()
+
 //essa função fica repetindo o codigo toda hora pra atualizar os cps
 setInterval(() => {
-    qtd_caixas += caixas_per_second;
-    refresh();
+    qtd_caixas += caixas_per_second
+    refresh()
 }, 1000)
+
+setInterval(() => {
+    save()
+}, 10000)
+
+setInterval(() =>{
+    frase_escolhida = Math.floor(Math.random() * frases.length)
+    document.getElementById("frase").innerHTML = frases[frase_escolhida];
+},2000)
