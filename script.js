@@ -46,19 +46,15 @@ function update_upgrade_status(id, qtd) {
 }
 
 function comprar_upgrade(id) {
-    if (qtd_caixas < upgrades[id].preco) {
-        naodisponivel.play()
-    }
-    else {
-        let qtd_upgrades = upgrades[id].qtd;
-        qtd_caixas -= upgrades[id].preco
-        qtd_upgrades += 1
-        upgrades[id].qtd = qtd_upgrades
-        caixas_per_second += upgrades[id].cps
-        upgrades[id].preco = Math.floor(upgrades[id].preco * 1.15);
-        update_upgrade_status(id, upgrades[id].qtd)
-        refresh()
-    }
+    if (qtd_caixas < upgrades[id].preco) return;
+    let qtd_upgrades = upgrades[id].qtd;
+    qtd_caixas -= upgrades[id].preco
+    qtd_upgrades += 1
+    upgrades[id].qtd = qtd_upgrades
+    caixas_per_second += upgrades[id].cps
+    upgrades[id].preco = Math.floor(upgrades[id].preco * 1.15);
+    update_upgrade_status(id, upgrades[id].qtd)
+    refresh()
 }
 
 function cria_item(id) {
@@ -148,7 +144,7 @@ const upgrades = [
         cps: 0.1,
         preco: 10,
         qtd: 0,
-        img: ".\\source\\images\\placeholder.png",
+        img: ".\\assets\\images\\placeholder.png",
     },
     {
         id: 1,
@@ -156,7 +152,7 @@ const upgrades = [
         cps: 5,
         preco: 100,
         qtd: 0,
-        img: ".\\source\\images\\placeholder.png",
+        img: ".\\assets\\images\\placeholder.png",
     },
     {
         id: 2,
@@ -164,80 +160,80 @@ const upgrades = [
         cps: 10,
         preco: 1000,
         qtd: 0,
-        img: ".\\source\\images\\placeholder.png",
+        img: ".\\assets\\images\\placeholder.png",
     },
 ];
 
 const itens = [
     {
         id: 0,
-        frame: ".\\source\\images\\placeholder.png",
+        frame: ".\\assets\\images\\placeholder.png",
         multi: 1,
         price: 5000
     },
     {
         id: 1,
-        frame: ".\\source\\images\\placeholder.png",
+        frame: ".\\assets\\images\\placeholder.png",
         multi: 2,
         price: 50000
     },
     {
         id: 0,
-        frame: ".\\source\\images\\placeholder.png",
+        frame: ".\\assets\\images\\placeholder.png",
         multi: 1,
         price: 5000
     },
     {
         id: 1,
-        frame: ".\\source\\images\\placeholder.png",
+        frame: ".\\assets\\images\\placeholder.png",
         multi: 2,
         price: 50000
     },
     {
         id: 0,
-        frame: ".\\source\\images\\placeholder.png",
+        frame: ".\\assets\\images\\placeholder.png",
         multi: 1,
         price: 5000
     },
     {
         id: 1,
-        frame: ".\\source\\images\\placeholder.png",
+        frame: ".\\assets\\images\\placeholder.png",
         multi: 2,
         price: 50000
     },
     {
         id: 0,
-        frame: ".\\source\\images\\placeholder.png",
+        frame: ".\\assets\\images\\placeholder.png",
         multi: 1,
         price: 5000
     },
     {
         id: 1,
-        frame: ".\\source\\images\\placeholder.png",
+        frame: ".\\assets\\images\\placeholder.png",
         multi: 2,
         price: 50000
     },
     {
         id: 0,
-        frame: ".\\source\\images\\placeholder.png",
+        frame: ".\\assets\\images\\placeholder.png",
         multi: 1,
         price: 5000
     },
     {
         id: 1,
-        frame: ".\\source\\images\\placeholder.png",
+        frame: ".\\assets\\images\\placeholder.png",
         multi: 2,
         price: 50000
     },
     {
         id: 0,
-        frame: ".\\source\\images\\placeholder.png",
+        frame: ".\\assets\\images\\placeholder.png",
         multi: 1,
         price: 5000
     },
     {
         id: 1,
-        frame: ".\\source\\images\\placeholder.png",
+        frame: ".\\assets\\images\\placeholder.png",
         multi: 2,
         price: 50000
     },
